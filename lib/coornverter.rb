@@ -1,6 +1,6 @@
 module Coornverter
   
-  class Coor
+  class LatLng
     attr_accessor :lat
     attr_accessor :lng
     
@@ -10,7 +10,7 @@ module Coornverter
 
     def self.parse(*args)
       lat, lng = args
-      Coor.new parse_deg(lat), parse_deg(lng)
+      LatLng.new parse_deg(lat), parse_deg(lng)
     end
     
     protected
