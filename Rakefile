@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "coornverter"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Parsing and converting geo coordinates (resp. latitude and longitude)}
+    gem.description = %Q{Parsing and converting geo coordinates (resp. latitude and longitude)}
     gem.email = "blindgaenger@gmail.com"
     gem.homepage = "http://github.com/blindgaenger/coornverter"
     gem.authors = ["blindgaenger"]
