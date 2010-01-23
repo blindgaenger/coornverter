@@ -9,8 +9,13 @@ module Coornverter
     end
 
     def self.parse(*args)
-      lat, lng = args
-      LatLng.new parse_deg(lat), parse_deg(lng)
+      lat, lng = [args].flatten
+      
+      if lat && lng.nil?
+        lat, lng = lat.split(',')
+      end
+      
+      LatLng.new parse_coor(lat), parse_coor(lng)
     end
     
     protected
@@ -24,6 +29,8 @@ module Coornverter
     end
     
     def self.parse_coor(coor)
+      return coor if coor.is_a? Float
+
       if coor
         coor = normalize(coor)
         if coor =~ /^(\d+\.\d+)$/ # Dec: DD.DDDDDD°

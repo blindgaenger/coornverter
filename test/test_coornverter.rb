@@ -55,6 +55,23 @@ class TestCoornverter < Test::Unit::TestCase
       reject_parse_coor '53.1X1' 
     end
 
+    should "parse values from strings" do
+      assert_parse 53.569683, 9.978, ["N 53.569683°", "E 09.978000°"]
+      assert_parse 53.569683, 9.978, "N 53.569683°", "E 09.978000°"
+      assert_parse 53.569683, 9.978, "N 53.569683°, E 09.978000°"
+    end
+      
+    should "parse values from floats" do
+      assert_parse 53.569683, 9.978, [53.569683, 9.978]
+      assert_parse 53.569683, 9.978, 53.569683, 9.978
+    end
+    
+    should "parse values from mixed types" do
+      assert_parse 53.569683, 9.978, [53.569683, "E 09.978000°"]
+      assert_parse 53.569683, 9.978, 53.569683, "E 09.978000°"
+      assert_parse 53.569683, 9.978, "53.569683, E 09.978000°"
+    end
+
   end
   
 end
