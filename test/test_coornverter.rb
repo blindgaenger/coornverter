@@ -2,7 +2,11 @@ require 'helper'
 
 class TestCoornverter < Test::Unit::TestCase
 
-  context "Parser" do
+  context "as module" do
+    Coornverter.parse "N 53.569683°", "E 09.978000°"
+  end
+
+  context "as parser" do
 
     should "parse Dec values" do
       assert_parse_coor 53.569683, "N 53.569683°"
