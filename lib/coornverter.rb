@@ -19,26 +19,22 @@ module Coornverter
       coor.gsub! /\s+/, ''
       coor.gsub! /^[NSWE]?/, ''
       coor.gsub! /"/, "''"
+      coor.gsub! /°$/, ''
       coor
     end
     
-    # Dec: DD.DDDDDD°
-    def self.parse_dec(coor)
-      normalize(coor).chomp('°').to_f
-    end
-    
-    # Deg: DD°MM.MMMM’
-    def self.parse_deg(coor)      
-      normalize(coor).gsub(/(\d+)°(\d+\.\d+)'?/) do
-        $1.to_f + $2.to_f/60
-      end.to_f
-    end
-    
-    # DMS: DD° MM' SS"
-    def self.parse_dms(coor)      
-      normalize(coor).gsub(/(\d+)°(\d+)'(\d+)''/) do
-        $1.to_f + $2.to_f/60 + $3.to_f/3600
-      end.to_f
+    def self.parse_coor(coor)
+      if coor
+        coor = normalize(coor)
+        if coor =~ /^(\d+\.\d+)$/ # Dec: DD.DDDDDD°
+          return $1.to_f
+        elsif coor =~ /^(\d+)°(\d+\.\d+)'?$/ # Deg: DD°MM.MMMM’
+          return $1.to_f + $2.to_f/60
+        elsif coor =~ /^(\d+)°(\d+)'(\d+)''$/ # DMS: DD° MM' SS"
+          return $1.to_f + $2.to_f/60 + $3.to_f/3600
+        end
+      end
+      raise "unknown format #{coor}"
     end
     
   end
